@@ -1,0 +1,10 @@
+*.snm
+*.toc
+*.aux
+*.bbl
+*.blg
+*.log
+*.nav
+*.out
+*.swp
+*-blx.bib

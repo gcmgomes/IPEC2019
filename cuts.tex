@@ -1,0 +1,121 @@
+\begin{frame}{\pname{Matching Cut}}
+    \begin{block}{}
+        A matching cut is a bipartition of $V(G)$ such that each vertex has at most one neighbor in the other part.
+    \end{block}
+    \pause
+    
+    \begin{figure}[!htb]
+        \centering
+        \hspace{-0.5cm}
+        \begin{tikzpicture}[scale=1]
+                %\draw[help lines] (-5,-5) grid (5,5);
+                \GraphInit[unit=3,vstyle=Simple]
+                \SetVertexSimple[Shape=circle, FillColor=black, MinSize=2pt]
+                \tikzset{VertexStyle/.append style = {inner sep = \inners, outer sep = \outers}}
+                \SetVertexNoLabel
+                \grCycle[RA=1.5, prefix=c]{4}
+                \AddVertexColor{white}{c0,c3}
+                \AddVertexColor{black!50}{c1,c2}
+        \end{tikzpicture}
+        \pause
+        \hspace{1.5cm}
+        \begin{tikzpicture}[scale=1,rotate=90]
+                %\draw[help lines] (-5,-5) grid (5,5);
+                \GraphInit[unit=3,vstyle=Simple]
+                \SetVertexSimple[Shape=circle, FillColor=black, MinSize=2pt]
+                \tikzset{VertexStyle/.append style = {inner sep = \inners, outer sep = \outers}}
+                \SetVertexNoLabel
+                \grCycle[RA=1.5, prefix=t]{3}
+        \end{tikzpicture}
+        \pause
+        \hspace{1.75cm}
+        \begin{tikzpicture}[scale=1, rotate=-90, shift={(0,0)}]
+                %\draw[help lines] (-5,-5) grid (5,5);
+                \GraphInit[unit=3,vstyle=Simple]
+                \SetVertexSimple[Shape=circle, FillColor=black, MinSize=2pt]
+                \tikzset{VertexStyle/.append style = {inner sep = \inners, outer sep = \outers}}
+                \SetVertexNoLabel
+                \grCompleteBipartite[RA=1.5, RB = 1.5, RS=1]{2}{3}
+        \end{tikzpicture}
+    \end{figure}
+    \pause
+    \fullcite{matching_cut_graham}
+    \begin{block}{}
+        Which graphs admit a matching cut?
+    \end{block}
+\end{frame}
+
+\begin{frame}{\pname{Matching Cut} and graph classes}
+    \fullcite{chvatal_matching_cut}
+    \pause
+    \begin{block}{}
+        Recognizing these graphs is $\NPH$ even if $\Delta(G) = 4$...
+    \end{block}
+    \pause
+    \fullcite{matching_cut_planar}
+    \begin{block}{}
+        ...$G$ is planar...
+    \end{block}
+    \pause
+    \fullcite{stable_cutset_line_graphs}
+    \begin{block}{}
+        ...or $G$ is bipartite.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Algorithmic results for \pname{Matching Cut}}
+    \fullcite{marx_treewidth_reduction}
+    \begin{block}{}
+        $\FPT$ parameterized by the number of edges crossing the cut.
+    \end{block}
+    \pause
+    \fullcite{matching_cut_tcs}
+    \begin{block}{}
+        $\FPT$ parameterized by vertex cover; $\bigOs{2^{n/2}}$ exact exponential algorithm.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Algorithmic results for \pname{Matching Cut}}
+    \fullcite{matching_cut_structural}
+    \begin{block}{}
+        $\FPT$ parameterized by treewidth, neighborhood diversity, or twin cover.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}{Algorithmic results for \pname{Matching Cut}}
+    \fullcite{matching_cut_ipec}
+    \begin{block}{}
+        \begin{itemize}
+            \item $\FPT$ parameterized by distance to cluster, distance to co-cluster;
+            \item Quadratic kernel for distance to cluster, linear kernel for distance to clique;
+            \item No polynomial kernel for treewidth $+$ number of crossing edges $+$ maximum degree (unless $\NP \subseteq \coNP/\poly$).
+            \item Exact exponential running in $\bigOs{1.38^n}$.
+        \end{itemize}
+    \end{block}
+    \pause
+    \begin{block}{}
+        During their presentation, asked for results on the generalization of \pname{Matching Cut} we discuss here.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Cuts and degree constraints}
+    %\setbeamercovered{transparent}
+    \onslide<1-4>
+    \begin{block}{}
+        A matching cut is a bipartition of $V(G)$ such that each vertex has at most one neighbor in the other part.
+    \end{block}
+    \onslide<2-5>
+    \begin{block}{Option 1}
+        Look for a \textbf{bipartition} such that each vertex has at most $\boldsymbol{d}$ neighbors in the other part.
+    \end{block}
+    \onslide<3-4>
+    \begin{block}{Option 2}
+        Look for a \textbf{$\boldsymbol{p}$-partition} such that each vertex has at most \textbf{one} neighbor outside its part.
+    \end{block}
+    \onslide<4-4>
+    \begin{block}{Option 3}
+        Look for a \textbf{$\boldsymbol{p}$-partition}  such that each pair of parts forms a matching cut.
+    \end{block}
+    %\setbeamercovered{invisible}
+\end{frame}

@@ -1,0 +1,219 @@
+\documentclass[]{beamer}
+
+\usetheme{CambridgeUS}
+%\usecolortheme{dolphin}
+
+\usepackage[english]{babel}    
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subfig}
+\usepackage{type1ec}
+\usepackage[T1]{fontenc}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts} 
+\usepackage{pifont}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{fancybox}
+\usepackage{colortbl}
+\usepackage{soul}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{tkz-berge}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{capt-of}
+\usepackage{comment}
+\usepackage{etoolbox}
+\usepackage{environ}
+\usepackage{dirtytalk}
+\usepackage{calc}
+\usepackage[style=authortitle,backend=bibtex]{biblatex}
+\addbibresource{refs.bib}
+
+
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\let\textmdorig\textmd
+\let\textscorig\textsc
+\let\textttorig\texttt
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\renewcommand<>{\textsc}[1]{%
+  \only#2{\textscorig{#1}}%
+}
+
+
+
+\usetikzlibrary{decorations,arrows,shapes}
+
+\usepackage{complexity}
+
+\newtheoremstyle{named}{}{}{\itshape}{}{\bfseries}{}{.2em}{\thmnote{#3} #1}
+\theoremstyle{named}
+\newtheorem{class_definition*}{}
+
+\theoremstyle{definition}
+%\newtheorem{definition}{Definition}
+
+\theoremstyle{plain}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+%\newtheorem*{corollary}{Corollary}
+\newtheorem{observation}{Observation}
+\newtheorem*{observation*}{Observation}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{conjecture*}{Conjecture}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\hypergraph}{\mathcal{H}}
+
+\newcommand{\rank}{\text{rank}}
+
+
+\newcommand{\biq}{\mathcal{B}}
+\newcommand{\clq}{\mathcal{C}}
+\newcommand{\str}{\mathcal{S}}
+\newcommand{\trans}[1]{\mathbb{T}_{#1}}
+\newcommand{\transs}[1]{\mathbb{T}^*_{#1}}
+\newcommand{\oblq}[1]{\mathbb{O}_{#1}}
+
+\newcommand{\Hyper}[1]{\hypergraph_{\mc{#1}}}
+\newcommand{\Oblq}[1]{\oblq_{\mc{#1}}}
+\newcommand{\Trans}[1]{\trans_{\mc{#1}}}
+
+\newcommand{\bigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\bigOs}[1]{\mathcal{O}^*\left(#1\right)}
+
+\newcommand{\tsc}[1]{\textsc{#1}}
+%\newcommand{\padd}[2]{\pgfmathadd{#1}{#2}}
+
+%\newcommand{\problem}[3]{\medskip\tsc{#1}\par\textit{Instance}: #2\par\textit{Question}: #3\medskip}
+\newcommand{\pproblem}[4]{\medskip\tsc{#1}\par\textit{Instance}: #2\par\textit{Parameter}: #3\par\textit{Question}: #4\medskip}
+
+%tikz stuff
+\newcommand{\inners}{1.6pt}
+\newcommand{\outers}{1pt}
+
+\newcommand{\tdef}[1]{\textit{\textbf{#1}}}
+
+%complexity
+\newcommand{\SiP}[1]{\Sigma^{\P}_{#1}}
+\newclass{\Hard}{Hard}
+\newclass{\Hness}{Hardness}
+\newcommand{\NPH}{\NP\text{-}\Hard}
+\newclass{\Complete}{Complete}
+\newclass{\Ctude}{Complete}
+\newclass{\Cness}{Completeness}
+\newcommand{\NPc}{\NP\text{-}\Complete}
+\newcommand{\NPct}{\NP\text{-}\Ctude}
+\newcommand{\NPcness}{\NP\text{-}\Cness}
+\newfunc{\dist}{dist}
+\newfunc{\girth}{girth}
+\newfunc{\nd}{nd}
+\newfunc{\YES}{YES}
+\newfunc{\NOi}{NO}
+\newfunc{\projax}{Proj}
+\newfunc{\liftax}{Lift}
+\newfunc{\ff}{ff}
+\newfunc{\cf}{cf}
+\newfunc{\tw}{tw}
+\newfunc{\dc}{dc}
+\newfunc{\dcc}{d\overline{c}}
+\newcommand{\pname}[1]{\textsc{#1}}
+
+\newcommand{\Proj}[1]{\projax_{#1}}
+\newcommand{\Lift}[1]{\liftax_{#1}}
+
+\renewcommand{\K}[1]{K_{\mathcal{#1}}}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+\newcommand{\CN}[1]{\chi_{\mathcal{#1}}}
+
+\newtoggle{proof_toggle}
+\toggletrue{proof_toggle}
+%\togglefalse{proof_toggle}
+
+\NewEnviron{tproof} {
+    \iftoggle{proof_toggle} {%
+        \begin{proof}\BODY\end{proof}}
+    {%
+    }
+}
+
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+
+
+\makeatletter
+\let\@@magyar@captionfix\relax
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}IPEC 2019~~\beamer@ifempty{\insertshortinstitute}{}{}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot} Finding cuts of bounded degree
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+
+\title{Finding cuts of bounded degree: complexity, FPT and exact algorithms, and kernelization}
+\author{\underline{Guilherme C. M. Gomes} \\
+        \vspace{10pt}
+        {\footnotesize Universidade Federal de Minas Gerais} \\
+        \vspace{20pt}
+        Ignasi Sau \\
+        \vspace{10pt}
+        {\footnotesize CNRS/LIRMM}}
+\date{}
+
+
+\begin{document}
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\include{cuts}
+\include{parts_cuts/np}
+\include{parts_cuts/param}
+
+\section{Thank you!}
+
+\end{document}

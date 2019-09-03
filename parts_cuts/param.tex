@@ -1,0 +1,275 @@
+\subsection{Parameterized algorithms}
+
+\begin{frame}{Distance to (co-)cluster}
+    \begin{block}{}
+        Why investigate these parameters? \onslide<2->{Because $\tau(G) \geq \max\{\dc(G), \dcc(G)\}$.}
+    \end{block}
+    \onslide<3->
+    \fullcite{matching_cut_ipec}
+\end{frame}
+
+\begin{frame}{Distance to (co-)cluster}
+    \begin{block}{}
+        $G$ is a cluster graph if each of its connected components is a clique (cluster).
+    \end{block}
+    \onslide<2->
+    \begin{figure}[!htb]
+        \centering
+        \hspace{-0.5cm}
+        \begin{tikzpicture}[scale=0.6]
+            \GraphInit[unit=3,vstyle=Normal]
+            \SetVertexNormal[Shape=circle, FillColor=black, MinSize=1pt]
+            \tikzset{VertexStyle/.append style = {inner sep = 1.2, outer sep = \outers}}
+            \SetVertexNoLabel
+            \begin{scope}[shift={(-3, 2)}]
+                \grComplete[RA=1,prefix=t]{3}
+            \end{scope}
+            
+            \begin{scope}[shift={(3, 2)}]
+                \grComplete[RA=1,prefix=s]{4}
+            \end{scope}
+            
+            \begin{scope}[shift={(-1, 3)}]
+                \grComplete[RA=1,prefix=v]{1}
+            \end{scope}
+            
+            \onslide<2-3>{
+                \begin{scope}[shift={(-1.5, 0)}]
+                    \grPath[RA=1, prefix=p]{4}
+                    \Edge[style=bend right](p0)(p2)
+                    \Edge[style=bend right](p1)(p3)
+                \end{scope}
+                \Edge(v0)(p1)
+                \Edge(v0)(p2)
+                
+                \Edge(s2)(p2)
+                \Edge(s3)(p3)
+                
+                \Edge(t0)(p0)
+                \Edge(t2)(p0)
+                
+                
+                \onslide<3> {
+                    \draw (0,0) ellipse (2cm and 1cm);
+                    \node[color=red] at (0, -1.5) {$U$};
+                }
+            }
+        \end{tikzpicture}
+    \end{figure}
+    \onslide<3->
+    \begin{block}{}
+        The modulator $U \subset V(G)$ is a set such that $G - U$ is a cluster graph, with clusters $\{C_1, \dots, C_{\ell}\}$.
+    \end{block}
+    \onslide<5>
+    \begin{block}{}
+        A co-cluster graph is the complement graph of a cluster graph.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}{The basics}
+    \begin{block}{Key idea}
+        Partition $U$ in monochromatic sets $\{U_1, \dots, U_\ell\}$ and merge them until we get a kernel.
+    \end{block}
+\end{frame}
+
+\begin{frame}{$N^{2d}(U_i)$}
+    \vspace{-0.3cm}
+    \begin{block}{}
+        For each $U_i$, a vertex $v \in V(G) \setminus U$ is in $N^{2d}(U_i)$ if:
+        \begin{itemize}
+            \item<2->[1] $v$ has at least $d+1$ neighbors in $U_i$; or
+            \item<3->[2] $v$ is in a cluster $C$ of size at least $2d+1$ in $G - U$ such that there is some vertex of $C$ with at least $d+1$ neighbors in $U_i$; or
+            \item<4->[3] $v$ is in a cluster $C$ and some vertex in $U_i$ has $2d$ neighbors in $C$; or
+            \item<5->[4] $v$ is in a cluster $C$ of size at least $2d+1$ and there is some vertex in $U_i$ with $d+1$ neighbors in $C$.
+        \end{itemize}
+    \end{block}
+    \begin{figure}[!htb]
+        \centering
+        \hspace*{1cm}\begin{tikzpicture}[scale=0.6]
+            \GraphInit[unit=3,vstyle=Normal]
+            \SetVertexNormal[Shape=circle, FillColor=black, MinSize=1pt]
+            \tikzset{VertexStyle/.append style = {inner sep = 1.2, outer sep = \outers}}
+            \SetVertexNoLabel
+            \node at (-2.6, 0) {$U_i$};
+            \node at (3, 0) {$d=2$};
+            \draw (0,0) ellipse (2cm and 0.3cm);
+            \Vertex[x=-1.2, y=0]{x0}
+            \Vertex[x=-0.4, y=0]{x1}
+            \Vertex[x=0.4, y=0]{x2}
+            \Vertex[x=1.2, y=0]{x3}
+            
+            \onslide<2->{
+                \Vertex[x=-3.5, y=-2.3]{c1}
+                \Edge(c1)(x0)
+                \Edge(c1)(x1)
+                \Edge(c1)(x2)
+            }
+            
+            \onslide<3-> {
+                \begin{scope}[scale=0.8, shift={(-1.5,-4)}]
+                    \tikzset{VertexStyle/.append style = {inner sep = 1.2pt, outer sep = \outers}}
+                    \begin{scope}[rotate=90]
+                        \grComplete[RA=1, prefix=p]{5}
+                    \end{scope}
+                    \Edge(p0)(x0)
+                    \Edge(p0)(x1)
+                    \Edge(p0)(x2)
+                \end{scope}
+            }
+            
+            \onslide<4->{
+                \begin{scope}[scale=0.8, shift={(2,-4)}]
+                    \tikzset{VertexStyle/.append style = {inner sep = 1.2pt, outer sep = \outers}}
+                    \begin{scope}[rotate=75]
+                        \grComplete[RA=1, prefix=t]{6}
+                    \end{scope}
+                    \Edge(x2)(t0)
+                    \Edge(x2)(t1)
+                    \Edge[style = bend left](x2)(t5)
+                    \Edge(x2)(t2)
+                \end{scope}
+                
+                \onslide<5->
+                \begin{scope}[scale=0.8, shift={(6,-3)}]
+                    \tikzset{VertexStyle/.append style = {inner sep = 1.2pt, outer sep = \outers}}
+                    \begin{scope}[rotate=75]
+                        \grComplete[RA=1, prefix=q]{5}
+                    \end{scope}
+                    \Edge(x3)(q0)
+                    \Edge(x3)(q1)
+                    \Edge(x3)(q2)
+                \end{scope}
+            }
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{The kernel}
+    
+    \begin{theorem}
+        When parameterized by distance to cluster, \pname{$d$-Cut} admits a polynomial kernel with $\bigO{d^2\dc(G)^{2d+1}}$ vertices that can be computed in $\bigO{d^4\dc(G)^{2d+1}(n+m)}$ time.
+    \end{theorem}
+
+\end{frame}
+
+\begin{frame}{Number of crossing edges}
+    \begin{block}{}
+        We can solve \pname{$d$-Cut} in $\FPT$ time using the treewidth reduction technique.
+    \end{block}
+    \fullcite{marx_treewidth_reduction}
+    \pause
+    \begin{block}{}
+        We cast \pname{$d$-Cut} as a separation problem on the line graph: for some pair $s,t \in V(L(G))$, we want a cutset with a maximum clique of size $\leq d$.
+    \end{block}
+    \pause
+    \begin{theorem}{}
+      \textsc{$d$-Cut} is \FPT\ paramterized by the number of crossing edges.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Treewidth}
+    \begin{block}{}
+        Dynamic programming on a nice tree decomposition.
+    \end{block}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \vspace{-0.5cm}
+            \begin{figure}[!htb]
+                \centering
+                \begin{tikzpicture}[rotate = 0]
+                        %\draw[help lines] (-5,-5) grid (5,5);
+                        \GraphInit[unit=3,vstyle=Normal]
+                        \SetVertexNormal[Shape=circle, MinSize=3pt]
+                        \tikzset{VertexStyle/.append style = {inner sep = \inners, outer sep = \outers}}
+                        \SetVertexNoLabel
+                        \begin{scope}[rotate=90]
+                            \draw[fill=gray!20] (0,0) circle (1.2);
+                            \node at (1.5, 0) {$V_x$};
+                            \grComplete[RA=0.816747, prefix=t]{3}
+                            \SetVertexLabel
+                            \Vertex[Node, L = {0}, Math]{t0}
+                        \end{scope}
+                        \begin{scope}[rotate=90]
+                            \tikzset{VertexStyle/.append style = {inner sep = 3pt, shape = rectangle}}
+                            \SetVertexLabel
+                            \Vertex[Node, L = {2}, Math]{t2}
+                            \Vertex[Node, L = {1}, Math]{t1}
+                        \end{scope}
+                        \begin{scope}[rotate=45, shift={(-1.71424, -1.71424)}]
+                            \grCycle[RA=1, prefix=c]{4}
+                            \Edge(t0)(t2)
+                        \end{scope}
+                        \begin{scope}[rotate=45, shift={(-1.71424, -1.71424)}]
+                            \SetVertexNormal[Shape=circle, FillColor = black, MinSize=3pt]
+                            \tikzset{VertexStyle/.append style = {shape = rectangle, inner sep = 3pt, outer sep = \outers}}
+                            \Vertex[Node]{c3}
+                        \end{scope}
+                        \begin{scope}[rotate=45, shift={(-1.71424, -1.71424)}]
+                            \SetVertexNormal[Shape=circle, FillColor = black, MinSize=3pt]
+                            \tikzset{VertexStyle/.append style = {inner sep = 2pt, outer sep = \outers}}
+                            \Vertex[Node]{c0}
+                            \Vertex[Node]{c1}
+                            \Vertex[Node]{c2}
+                        \end{scope}
+                        \Edge(c0)(t2)
+                        \Edge(c1)(t2)
+                        \Edge(c1)(t1)
+                        \Edge(c0)(c2)
+                        %\AssignVertexLabel{t}{0,1,0}
+                \end{tikzpicture}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.55\textwidth}
+            \begin{itemize}
+                \item<2-> $S \subseteq V_x$ represents which (squared) elements of $V_x$ are assigned to $A$.
+                \item<3-> $\mathbf{\alpha} \in \{0, \dots, d\}^{|V_x|}$ stores how many neighbors each $v \in V_x$ has across the cut \textbf{\textit{outside}} of $V_x$.
+                \item<4-> $t = 1$ if $A$ and $B$ are non-empty. 
+                \item<5-> $f_x(S, \mathbf{\alpha}, t) = 1$ iff the subtree rooted at bag $x$ has a partition that satisfies all of the above.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Treewidth}
+    \begin{theorem}
+        For every $d \geq 1$, \pname{$d$-Cut} can be solved in $\bigOs{2^{\tw(G)}(d+1)^{2\tw(G)}}$.
+    \end{theorem}
+    \pause
+    \begin{corollary}
+        \pname{Matching Cut} can be solved in $\bigOs{8^{\tw(G)}}$. (Improvement upon $12^{\tw(G)}$).
+    \end{corollary}
+    \fullcite{matching_cut_structural}
+\end{frame}
+
+\begin{frame}{Other results}
+    \begin{theorem}
+        \pname{$d$-Cut} has no polynomial kernel parameterized by treewidth, maximum degree and number of crossing edges, unless $\NP \subseteq \coNP / \poly$.
+    \end{theorem}
+    \pause
+    \begin{theorem}
+        \pname{$d$-Cut} can be solved in $\bigOs{(d+1)^{\dc(G)}}$ time.
+    \end{theorem}
+    \pause
+    \begin{theorem}
+        \pname{$d$-Cut} can be solved in $\bigOs{(d+1)^{\dcc(G)}}$ time.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{Open Problems}
+    \begin{block}{}
+        Settle the complexity for graphs of maximum degree between $d+3$ and $2d+1$.
+        We guess most of these should be solvable in polynomial time, but right now we have no idea how to tackle this problem.
+    \end{block}
+    \pause
+    \begin{block}{}
+        Decide if the exponential dependency on $d$ is necessary, or if we can restrict its influence to a polynomial factor.
+    \end{block}
+    \pause
+    \begin{block}{}
+        Explore the other generalizations of \pname{Matching Cut}, in particular Option 3, which seems considerably harder than the other two.
+    \end{block}
+    \begin{block}{Option 3}
+        Look for a \textbf{$\boldsymbol{p}$-partition}  such that each pair of parts forms a matching cut.
+    \end{block}
+\end{frame}
