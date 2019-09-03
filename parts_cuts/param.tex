@@ -1,11 +1,52 @@
-\subsection{Parameterized algorithms}
+\section{Parameterized algorithms}
 
-\begin{frame}{Distance to (co-)cluster}
+\begin{frame}{Kernelization}
+    \begin{theorem}
+        \pname{$d$-Cut} does not admit a polynomial kernel when parameterized by treewidth, number of crossing edges and maximum degree, unless $\NP \subseteq \coNP/\poly$.
+    \end{theorem}
+    \onslide<2->
     \begin{block}{}
-        Why investigate these parameters? \onslide<2->{Because $\tau(G) \geq \max\{\dc(G), \dcc(G)\}$.}
+        We show that \pname{$d$-Cut} (OR-)cross-composes onto itself.
     \end{block}
     \onslide<3->
-    \fullcite{matching_cut_ipec}
+    \begin{figure}[!htb]
+        \centering
+        \hspace{-0.5cm}
+        \begin{tikzpicture}[scale=0.6]
+            \GraphInit[unit=3,vstyle=Normal]
+            \SetVertexNormal[Shape=circle, FillColor=black, MinSize=1pt]
+            \tikzset{VertexStyle/.append style = {inner sep = 1.2, outer sep = \outers}}
+            \onslide<4->
+            \foreach \i in {0,1,2,3} {
+                \pgfmathsetmacro{\x}{5*\i}
+                \pgfmathtruncatemacro{\id}{\i + 1}
+                \draw (\x,0) circle (1);
+                \node at (\x, -1.5) {$G_\id$};
+            }
+            \onslide<5->
+            \foreach \i in {0,1,2,3} {
+                \pgfmathsetmacro{\x}{5*\i}
+                \pgfmathtruncatemacro{\id}{\i + 1}
+                \Vertex[x=\x, y=0.9, LabelOut, Lpos=270, L={v_\id}, Math]{v_\i}
+            }
+            \onslide<6->
+            \foreach \i in {0,1,2} {
+                \pgfmathsetmacro{\x}{5*\i + 2}
+                \pgfmathsetmacro{\xp}{\x+1}
+                \pgfmathsetmacro{\xk}{\x+0.5}
+                \pgfmathtruncatemacro{\id}{\i + 1}
+                \draw[fill=gray!10] (\x, 0.5) rectangle (\xp, 2.5);
+                \node at (\xk, 3) {$K_{2d}$};
+                \Vertex[x=\xk, y=2.1, NoLabel]{x_0\i}
+                \Vertex[x=\xk, y=1.5, NoLabel]{x_1\i}
+                \Vertex[x=\xk, y=0.9, NoLabel]{x_2\i}
+                \foreach \j in {0,1,2} {
+                    \Edge(x_\j\i)(v_\i)
+                    \Edge(x_\j\i)(v_\id)
+                }
+            }
+        \end{tikzpicture}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Distance to (co-)cluster}
@@ -243,10 +284,6 @@
 \end{frame}
 
 \begin{frame}{Other results}
-    \begin{theorem}
-        \pname{$d$-Cut} has no polynomial kernel parameterized by treewidth, maximum degree and number of crossing edges, unless $\NP \subseteq \coNP / \poly$.
-    \end{theorem}
-    \pause
     \begin{theorem}
         \pname{$d$-Cut} can be solved in $\bigOs{(d+1)^{\dc(G)}}$ time.
     \end{theorem}
