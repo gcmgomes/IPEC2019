@@ -8,7 +8,6 @@
     \begin{block}{}
         We show that \pname{$d$-Cut} (OR-)cross-composes onto itself.
     \end{block}
-    \onslide<3->
     \begin{figure}[!htb]
         \centering
         \hspace{-0.5cm}
@@ -16,20 +15,20 @@
             \GraphInit[unit=3,vstyle=Normal]
             \SetVertexNormal[Shape=circle, FillColor=black, MinSize=1pt]
             \tikzset{VertexStyle/.append style = {inner sep = 1.2, outer sep = \outers}}
-            \onslide<4->
+            \onslide<3->
             \foreach \i in {0,1,2,3} {
                 \pgfmathsetmacro{\x}{5*\i}
                 \pgfmathtruncatemacro{\id}{\i + 1}
                 \draw (\x,0) circle (1);
                 \node at (\x, -1.5) {$G_\id$};
             }
-            \onslide<5->
+            \onslide<4->
             \foreach \i in {0,1,2,3} {
                 \pgfmathsetmacro{\x}{5*\i}
                 \pgfmathtruncatemacro{\id}{\i + 1}
                 \Vertex[x=\x, y=0.9, LabelOut, Lpos=270, L={v_\id}, Math]{v_\i}
             }
-            \onslide<6->
+            \onslide<5->
             \foreach \i in {0,1,2} {
                 \pgfmathsetmacro{\x}{5*\i + 2}
                 \pgfmathsetmacro{\xp}{\x+1}
@@ -108,8 +107,8 @@
 \end{frame}
 
 
-\begin{frame}{The basics}
-    \begin{block}{Key idea}
+\begin{frame}{}
+    \begin{block}{Goal}
         Partition $U$ in monochromatic sets $\{U_1, \dots, U_\ell\}$ and merge them until we get a kernel.
     \end{block}
 \end{frame}
